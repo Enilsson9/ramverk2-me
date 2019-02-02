@@ -4,6 +4,7 @@ const cors = require('cors');
 const index = require('./routes/index');
 const hello = require('./routes/hello');
 const user = require('./routes/user');
+const reports = require('./routes/reports');
 
 const app = express();
 const port = 8333;
@@ -19,6 +20,7 @@ if (process.env.NODE_ENV !== 'test') {
 app.use('/', index);
 app.use('/hello', hello);
 app.use('/user', user);
+app.use('/reports', reports);
 
 // Start up server
 app.listen(port, () => console.log(`Example API listening on port ${port}!`));
