@@ -1,5 +1,8 @@
 var express = require('express');
 var router = express.Router();
+const sqlite3 = require('sqlite3').verbose();
+const db = new sqlite3.Database('./db/texts.sqlite');
+
 
 router.get('/', function(req, res, next) {
     const data = {
@@ -30,5 +33,50 @@ router.get("/kmom01", (req, res) => {
 
     res.json(data);
 });
+
+router.post("/",
+    (req, res, next) => checkToken(req, res, next),
+    (req, res) => addReport(res, req.body));
+
+function addReport(res, body) {
+
+    const kmom = body.kmom;
+    const content = body.content;
+
+    if (!kmom || !content) {
+        return res.status(401).json({
+            errors: {
+                status: 401,
+                source: "/reports",
+                title: "Kmom or content missing",
+                detail: "Kmom or content missing in request"
+            }
+        });
+    }
+
+
+    db.run("INSERT INTO reports (email, kmom, content) VALUES (?, ?, ?)",
+        email,
+        kmom,
+        content, (err) => {
+            if (err) {
+                return res.status(500).json({
+                    errors: {
+                        status: 500,
+                        source: "/reports",
+                        title: "Database error",
+                        detail: err.message
+                    }
+                });
+            }
+
+            res.status(201).json({
+                data: {
+                    message: "Report successfully submitted."
+                }
+            });
+        });
+}
+
 
 module.exports = router;

@@ -5,9 +5,16 @@ const index = require('./routes/index');
 const hello = require('./routes/hello');
 const user = require('./routes/user');
 const reports = require('./routes/reports');
+const bodyParser = require('body-parser');
 
 const app = express();
 const port = 8333;
+
+
+
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+
 
 app.use(cors());
 
@@ -22,6 +29,7 @@ app.use('/hello', hello);
 app.use('/user', user);
 app.use('/reports', reports);
 
+
 // Start up server
 app.listen(port, () => console.log(`Example API listening on port ${port}!`));
 
@@ -33,6 +41,8 @@ app.use((req, res, next) => {
     err.status = 404;
     next(err);
 });
+
+
 
 app.use((err, req, res, next) => {
     if (res.headersSent) {
