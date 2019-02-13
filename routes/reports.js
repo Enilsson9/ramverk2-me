@@ -28,6 +28,7 @@ router.get("/kmom01", (req, res) => {
                 }
             });
         }
+        
         const data = {
             data: {
                 msg: row.content
@@ -50,6 +51,7 @@ router.get("/kmom02", (req, res) => {
                 }
             });
         }
+
         const data = {
             data: {
                 msg: row.content
