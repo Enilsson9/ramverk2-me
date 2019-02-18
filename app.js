@@ -2,8 +2,6 @@ const express = require("express");
 const morgan = require('morgan');
 const cors = require('cors');
 const index = require('./routes/index');
-const hello = require('./routes/hello');
-const user = require('./routes/user');
 const reports = require('./routes/reports');
 const bodyParser = require('body-parser');
 
@@ -25,8 +23,6 @@ if (process.env.NODE_ENV !== 'test') {
 }
 
 app.use('/', index);
-app.use('/hello', hello);
-app.use('/user', user);
 app.use('/reports', reports);
 
 

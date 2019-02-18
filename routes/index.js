@@ -4,9 +4,8 @@ const auth = require('../routes/auth');
 var express = require('express');
 var router = express.Router();
 
-
 router.get('/', function(req, res, next) {
-    const data = {
+     const data = {
         data: {
             name: "Edward Nilsson",
             acronym: "edni17",
@@ -26,8 +25,6 @@ router.post("/register",
 
 router.post("/login",
     (req, res) => auth.login(res, req.body));
-
-
 
 
 
