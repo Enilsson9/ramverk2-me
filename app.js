@@ -3,6 +3,8 @@ const morgan = require('morgan');
 const cors = require('cors');
 const index = require('./routes/index');
 const reports = require('./routes/reports');
+const login = require('./routes/login');
+const register = require('./routes/register');
 const bodyParser = require('body-parser');
 
 const app = express();
@@ -10,11 +12,11 @@ const port = 8333;
 
 
 
-app.use(function(req, res, next) {
+/*app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
-});
+});*/
 
 
 app.use(cors());
@@ -31,6 +33,8 @@ if (process.env.NODE_ENV !== 'test') {
 
 app.use('/', index);
 app.use('/reports', reports);
+app.use('/login', login);
+app.use('/register', register);
 
 
 // Start up server

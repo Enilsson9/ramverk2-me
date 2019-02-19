@@ -20,11 +20,11 @@ router.get('/', function(req, res, next) {
     res.json(data);
 });
 
-router.post("/register",
-    (req, res) => auth.register(res, req.body));
+//router.post("/register",
+  //  (req, res) => auth.register(res, req.body));
 
-router.post("/login",
-    (req, res) => auth.login(res, req.body));
+//router.post("/login",
+  //  (req, res) => auth.login(res, req.body));
 
 
 
