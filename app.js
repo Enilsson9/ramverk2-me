@@ -32,7 +32,7 @@ if (process.env.NODE_ENV !== 'test') {
 }
 
 app.use('/', index);
-app.use('/reports', reports);
+app.use('/reports', cors(), reports);
 app.use('/login', login);
 app.use('/register', register);
 
