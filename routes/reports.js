@@ -28,7 +28,7 @@ router.get("/kmom01", (req, res) => {
                 }
             });
         }
-        
+
         const data = {
             data: {
                 msg: row.content
@@ -102,6 +102,49 @@ function addReport(res, body) {
             res.status(201).json({
                 data: {
                     message: "Report successfully submitted."
+                }
+            });
+        });
+}
+
+router.post("/update",
+    (req, res, next) => checkToken(req, res, next),
+    (req, res) => updateReport(res, req.body));
+
+function updateReport(res, body) {
+
+    const kmom = body.kmom;
+    const content = body.content;
+
+    if (!kmom || !content) {
+        return res.status(401).json({
+            errors: {
+                status: 401,
+                source: "/reports",
+                title: "Kmom or content missing",
+                detail: "Kmom or content missing in request"
+            }
+        });
+    }
+
+
+    db.run("UPDATE reports SET content = ? WHERE kmom = ?",
+        content,
+        kmom, (err) => {
+            if (err) {
+                return res.status(500).json({
+                    errors: {
+                        status: 500,
+                        source: "/reports",
+                        title: "Database error",
+                        detail: err.message
+                    }
+                });
+            }
+
+            res.status(201).json({
+                data: {
+                    message: "Report successfully updated."
                 }
             });
         });
