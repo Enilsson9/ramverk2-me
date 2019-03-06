@@ -38,14 +38,17 @@ app.use('/register', register);
 
 
 // Start up server
-app.listen(port, () => console.log(`Example API listening on port ${port}!`));
+const server = app.listen(port, () => console.log(`Example API listening on port ${port}!`));
+module.exports = server;
 
 // Add routes for 404 and error handling
 // Catch 404 and forward to error handler
 // Put this last
 app.use((req, res, next) => {
     var err = new Error("Not Found");
-    err.status = 404;
+    err.status = 404;const server = app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+
+module.exports = server;
     next(err);
 });
 
