@@ -13,22 +13,6 @@ chai.use(chaiHttp);
 
 describe('Login', () => {
     describe('POST /login', () => {
-        /*it('User does not exist', (done) => {
-            chai.request(server)
-                .post("/login")
-                .set('x-access-token', 'whatever')
-                .send({
-                  'email': 'info@test.com',
-                  'password': '3x4mp1E'
-                })
-                .end((err, res) => {
-
-                    res.should.have.status(401);
-                    res.error.text.should.be.a("string");
-                    done();
-                });
-        });*/
-
         it('Email or password are missing', (done) => {
             chai.request(server)
                 .post("/login")
@@ -43,21 +27,5 @@ describe('Login', () => {
                     done();
                 });
         });
-
-        /*it('Wrong password', (done) => {
-            chai.request(server)
-                .post("/login")
-                .set('x-access-token', 'whatever')
-                .send({
-                  'email': 'edward@nilsson.gt',
-                  'password': 'notthispassword'
-                })
-                .end((err, res) => {
-
-                    res.should.have.status(401);
-                    res.error.text.should.be.a("string");
-                    done();
-                });
-        });*/
     });
 });

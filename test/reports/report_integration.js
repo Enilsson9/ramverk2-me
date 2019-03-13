@@ -4,7 +4,7 @@ process.env.NODE_ENV = 'test';
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-//const db = require("../../db/database.js");
+const db = require("../../db/database.js");
 const server = require('../../app.js');
 
 chai.should();
@@ -12,7 +12,7 @@ chai.should();
 chai.use(chaiHttp);
 
 describe('Reports', () => {
-    /*describe('GET /reports/kmom01', () => {
+    describe('GET /reports/kmom01', () => {
         it('200 kmom01', (done) => {
             chai.request(server)
                 .get("/reports/kmom01")
@@ -44,7 +44,7 @@ describe('Reports', () => {
                     done();
                 });
         });
-    });*/
+    });
 
     describe('POST /reports', () => {
         it('Kmom or content missing', (done) => {
@@ -58,6 +58,7 @@ describe('Reports', () => {
 
                     res.should.have.status(500);
                     res.error.text.should.be.a("string");
+                    
                     done();
                 });
         });
