@@ -1,5 +1,5 @@
-const reports = require('../routes/reports');
-const auth = require('../routes/auth');
+//const reports = require('../routes/reports');
+//const auth = require('../routes/auth');
 
 var express = require('express');
 var router = express.Router();
