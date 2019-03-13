@@ -12,7 +12,7 @@ chai.should();
 chai.use(chaiHttp);
 
 describe('Reports', () => {
-    describe('GET /reports/kmom01', () => {
+    /*describe('GET /reports/kmom01', () => {
         it('200 kmom01', (done) => {
             chai.request(server)
                 .get("/reports/kmom01")
@@ -44,7 +44,7 @@ describe('Reports', () => {
                     done();
                 });
         });
-    });
+    });*/
 
     describe('POST /reports', () => {
         it('Kmom or content missing', (done) => {
