@@ -85,6 +85,29 @@ router.get("/kmom03", (req, res) => {
     });
 });
 
+router.get("/kmom04", (req, res) => {
+    db.each("SELECT content FROM reports WHERE kmom=4", (err, row) => {
+        if (err) {
+            return res.status(500).json({
+                errors: {
+                    status: 500,
+                    source: "/reports",
+                    title: "Database error",
+                    detail: err.message
+                }
+            });
+        }
+
+        const data = {
+            data: {
+                msg: row.content
+            }
+        };
+
+        res.json(data);
+    });
+});
+
 
 
 router.post("/",
