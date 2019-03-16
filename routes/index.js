@@ -1,6 +1,3 @@
-//const reports = require('../routes/reports');
-//const auth = require('../routes/auth');
-
 var express = require('express');
 var router = express.Router();
 
@@ -19,14 +16,6 @@ router.get('/', function(req, res, next) {
 
     res.json(data);
 });
-
-//router.post("/register",
-  //  (req, res) => auth.register(res, req.body));
-
-//router.post("/login",
-  //  (req, res) => auth.login(res, req.body));
-
-
 
 
 module.exports = router;

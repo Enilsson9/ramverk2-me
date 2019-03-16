@@ -12,16 +12,7 @@ const app = express();
 const port = 8333;
 
 
-
-/*app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});*/
-
-
 app.use(cors());
-
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
@@ -38,41 +29,19 @@ app.use('/login', login);
 app.use('/register', register);
 
 
+
 // Start up server
 const server = app.listen(port, () => console.log(`Example API listening on port ${port}!`));
 
+// Start up socket.io
+const io = require('socket.io')(server);
 
-module.exports = server;
-
-// Add routes for 404 and error handling
-// Catch 404 and forward to error handler
-// Put this last
-
-/*
-app.use((req, res, next) => {
-    var err = new Error("Not Found");
-    err.status = 404;const server = app.listen(port, () => console.log(`Example app listening on port ${port}!`));
-
-module.exports = server;
-    next(err);
-});
-
-
-
-app.use((err, req, res, next) => {
-    if (res.headersSent) {
-        return next(err);
-    }
-
-    res.status(err.status || 500).json({
-        "errors": [
-            {
-                "status": err.status,
-                "title":  err.message,
-                "detail": err.message
-            }
-        ]
+io.on('connection', function(socket) {
+    console.log(socket.id)
+    socket.on('SEND_MESSAGE', function(data) {
+        io.emit('MESSAGE', data)
     });
 });
 
-*/
+//export server
+module.exports = server;
