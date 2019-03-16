@@ -6,5 +6,6 @@ CREATE TABLE IF NOT EXISTS users (
 
 CREATE TABLE IF NOT EXISTS reports (
     kmom VARCHAR(255) NOT NULL,
-    content VARCHAR(400) NOT NULL
+    content VARCHAR(400) NOT NULL,
+    UNIQUE(kmom)
 );
