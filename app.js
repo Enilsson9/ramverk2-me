@@ -37,7 +37,7 @@ const mongo = require('mongodb').MongoClient;
 // Start up socket.io
 const io = require('socket.io')(server);
 // Connect to mongo
-mongo.connect('mongodb://127.0.0.1/chat', function(err, db){
+mongo.connect('mongodb://localhost:27017/chat', function(err, db){
   if(err){
       throw err;
   }
