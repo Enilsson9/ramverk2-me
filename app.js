@@ -33,15 +33,53 @@ app.use('/register', register);
 // Start up server
 const server = app.listen(port, () => console.log(`Example API listening on port ${port}!`));
 
+const mongo = require('mongodb').MongoClient;
 // Start up socket.io
 const io = require('socket.io')(server);
+// Connect to mongo
+mongo.connect('mongodb://127.0.0.1/chat', function(err, db){
+  if(err){
+      throw err;
+  }
 
-io.on('connection', function(socket) {
-    console.log(socket.id)
-    socket.on('SEND_MESSAGE', function(data) {
-        io.emit('MESSAGE', data)
-    });
+  console.log('MongoDB connected...');
+
+  io.on('connection', function(socket) {
+      //console.log(socket.id)
+      let chat = db.collection('chats');
+      //console.log(chat);
+
+      // Get chats from mongo collection
+      chat.find().limit(100).sort({_id:1}).toArray(function(err, res){
+        if(err){
+            throw err;
+        }
+        // Emit the messages
+        socket.emit('MESSAGES', res);
+      });
+
+      socket.on('SEND_MESSAGE', function(data) {
+        let user = data.user;
+        let message = data.message;
+
+        console.log(data);
+
+        chat.insert({user: user, message: message}, function(){
+            io.emit('MESSAGES', data)
+        });
+      });
+  });
 });
+
+
+
+
+
+
+
+
+
+
 
 //export server
 module.exports = server;
